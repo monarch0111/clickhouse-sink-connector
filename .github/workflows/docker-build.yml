@@ -65,19 +65,19 @@ jobs:
       - name: Build Docker image (Kafka)
         working-directory: sink-connector
         run: |
-          docker build . --file docker/Dockerfile-sink-on-debezium-base-image --tag altinityinfra/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-kafka
-          docker save altinityinfra/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-kafka | gzip > clickhouse-sink-connector_${{ env.IMAGE_TAG }}-kafka.tar.gz
+          docker build . --file docker/Dockerfile-sink-on-debezium-base-image --tag monarch0111/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-kafka
+          docker save monarch0111/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-kafka | gzip > clickhouse-sink-connector_${{ env.IMAGE_TAG }}-kafka.tar.gz
 
       - name: Upload Docker tar (Kafka)
         uses: actions/upload-artifact@v3
-        if: ${{ github.event.pull_request.head.repo.full_name != 'Altinity/clickhouse-sink-connector' && github.event_name != 'workflow_dispatch' }}
+        if: ${{ github.event.pull_request.head.repo.full_name != 'monarch0111/clickhouse-sink-connector' && github.event_name != 'workflow_dispatch' }}
         with:
           name: clickhouse-sink-connector_${{ env.IMAGE_TAG }}-kafka.tar.gz
           path: sink-connector/clickhouse-sink-connector_${{ env.IMAGE_TAG }}-kafka.tar.gz
 
       - name: Upload Docker image (Kafka)
         if: ${{ env.DOCKERHUB_USERNAME != '' }}
-        run: docker image push altinityinfra/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-kafka
+        run: docker image push monarch0111/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-kafka
 
       - name: Update sink connector jar file version in sink-connector-lightweight pom.xml
         working-directory: sink-connector-lightweight
@@ -99,16 +99,16 @@ jobs:
 
       - name: Build Docker image (Lightweight)
         run: |
-          docker build . --file sink-connector-lightweight/Dockerfile --tag altinityinfra/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-lt
-          docker save altinityinfra/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-lt | gzip > clickhouse-sink-connector_${{ env.IMAGE_TAG }}-lt.tar.gz
+          docker build . --file sink-connector-lightweight/Dockerfile --tag monarch0111/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-lt
+          docker save monarch0111/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-lt | gzip > clickhouse-sink-connector_${{ env.IMAGE_TAG }}-lt.tar.gz
 
       - name: Upload Docker tar (Lightweight)
         uses: actions/upload-artifact@v3
-        if: ${{ github.event.pull_request.head.repo.full_name != 'Altinity/clickhouse-sink-connector' && github.event_name != 'workflow_dispatch' }}
+        if: ${{ github.event.pull_request.head.repo.full_name != 'monarch011/clickhouse-sink-connector' && github.event_name != 'workflow_dispatch' }}
         with:
           name: clickhouse-sink-connector_${{ env.IMAGE_TAG }}-lt.tar.gz
           path: clickhouse-sink-connector_${{ env.IMAGE_TAG }}-lt.tar.gz
 
       - name: Upload Docker image (Lightweight)
         if: ${{ env.DOCKERHUB_USERNAME != '' }}
-        run: docker image push altinityinfra/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-lt
+        run: docker image push monarch0111/clickhouse-sink-connector:${{ env.IMAGE_TAG }}-lt

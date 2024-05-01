@@ -38,14 +38,14 @@ jobs:
       - name: Pull test images
         if: ${{ !inputs.prerelease && !inputs.draft}}
         run: |
-          docker pull altinityinfra/clickhouse-sink-connector:$release_tag-test-kafka
-          docker pull altinityinfra/clickhouse-sink-connector:$release_tag-test-lt
+          docker pull monarch0111/clickhouse-sink-connector:$release_tag-test-kafka
+          docker pull monarch0111/clickhouse-sink-connector:$release_tag-test-lt
 
       - name: Tag images
         if: ${{ !inputs.prerelease && !inputs.draft}}
         run: |
-          docker image tag altinityinfra/clickhouse-sink-connector:$release_tag-test-kafka altinity/clickhouse-sink-connector:$release_tag-kafka
-          docker image tag altinityinfra/clickhouse-sink-connector:$release_tag-test-lt altinity/clickhouse-sink-connector:$release_tag-lt
+          docker image tag monarch0111/clickhouse-sink-connector:$release_tag-test-kafka altinity/clickhouse-sink-connector:$release_tag-kafka
+          docker image tag monarch0111/clickhouse-sink-connector:$release_tag-test-lt altinity/clickhouse-sink-connector:$release_tag-lt
 
       - name: Push images
         if: ${{ !inputs.prerelease && !inputs.draft }}

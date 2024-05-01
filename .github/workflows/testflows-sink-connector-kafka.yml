@@ -28,7 +28,7 @@ env:
 
 jobs:
   testflows-kafka:
-    runs-on: [self-hosted, on-demand, type-cpx51, image-x86-app-docker-ce]
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
